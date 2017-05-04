@@ -60,7 +60,7 @@ $(".imageClass").on("click", function() {
     });
 
 //make function to create the buttons of the original array ingredients
-function renderButtons(){
+function renderButtons(ingredient){
 	//making where the buttons get dumped not have duplicates
 	//starting with an empty div
 	$('#ingredientView').empty();
@@ -83,7 +83,16 @@ function renderButtons(){
 
 }
 
-
+function configImg(data, image, ingredient){
+    var imageURL = data.images.fixed_height.url;
+    var imageURLStill = data.images.fixed_height_still.url;
+    ingredientImage.addClass("gif");
+    ingredientImage.attr("src", ImageURLStill);
+    ingredientImage.attr("alt", ingredient);
+   ingredientImage.attr("data-state", "still");
+   ingredientImage.attr("data-still", ImageURLStill);
+   ingredientImage.attr("data-animate", imageURL);
+};
 
 //utilize previous function to accept new movies after submit button click
 //also taken from movie button assignment
