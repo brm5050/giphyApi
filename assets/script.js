@@ -7,29 +7,57 @@ var ingredients = ['Parsley', 'Flour', 'Shallots', 'Red Wine', 'Spinach', 'Eggs'
 //taken from movie button in-class assignment
 function displayIngredient(){
 	var ingredient = $(this).attr('data-name');
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&api_key=dc6zaTOxFJmzC";
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&limit=5&api_key=dc6zaTOxFJmzC";
 
+	//get ajax
 	  $.ajax({
       url: queryURL,
       method: 'GET'
+      //make function taking input response and linking var results
     }).done(function(response) {
       	console.log(response);
       	var results = response.data;
-     	 for (var i = 0; i < results.length; i++) {
-      	var ingredDiv = $('<div class="ingredientClass">');
-      	var p = $("<p>").text("Rating: " + results[i].rating);
-      	var ingredientImage = $("<img>");
-      	ingredientImage.attr("src", results[i].images.fixed_height.url);
 
-      	ingredDiv.append(p);
-        ingredDiv.append(ingredientImage);
-		
-		$("#displayGifs").prepend(ingredDiv);
+      	//for loop 
+     	 for (var i = 0; i < results.length; i++) {
+
+     	//take out r rated pg13 gifs
+     	if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+	      	var ingredDiv = $('<div class="ingredientPic">');
+
+	      	//label rating for each gif
+	      	var p = $("<p>").text("Rating: " + results[i].rating);
+	      	var ingredientImage = $("<img data-state='still'>");
+
+	      	ingredientImage.attr("src", results[i].images.fixed_height.url);
+
+
+	      	ingredDiv.append(p);
+	        ingredDiv.append(ingredientImage);
+			
+			$("#displayGifs").prepend(ingredDiv);
+			}
   		}
 
       });
 }
 
+
+//pausing and animating function
+$(".imageClass").on("click", function() {
+      // var state then set data state
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
 
 //make function to create the buttons of the original array ingredients
 function renderButtons(){
@@ -56,8 +84,10 @@ function renderButtons(){
 }
 
 
+
 //utilize previous function to accept new movies after submit button click
 //also taken from movie button assignment
+//using event to reference it on the next line ?  actually not too sure about event
 $('#addIngredient').on('click', function (event){
 	event.preventDefault();
 	var ing= $('#ingredientInput').val().trim();
@@ -71,7 +101,7 @@ $(document).on("click", ".ingredientClass", displayIngredient);
 renderButtons();
 
 
-//pausing gifs -- go to saturday class @1:11
+//pausing gifs -- go to saturday class vid @1:11
 
 
 
