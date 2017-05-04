@@ -82,7 +82,7 @@ function renderButtons(ingredient){
 	}
 
 }
-
+//code that I stole from chris that I cant get working
 function configImg(data, image, ingredient){
     var imageURL = data.images.fixed_height.url;
     var imageURLStill = data.images.fixed_height_still.url;
