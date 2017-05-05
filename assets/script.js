@@ -7,7 +7,7 @@ var ingredients = ['Parsley', 'Flour', 'Shallots', 'Red Wine', 'Spinach', 'Eggs'
 //taken from movie button in-class assignment
 function displayIngredient(){
 	var ingredient = $(this).attr('data-name');
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + ingredient + "&limit=5&api_key=dc6zaTOxFJmzC";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + ingredient + "&limit=5&api_key=dc6zaTOxFJmzC";
 
 	//get ajax
 	  $.ajax({
